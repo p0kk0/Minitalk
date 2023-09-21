@@ -12,11 +12,26 @@
 
 #include <unistd.h>
 #include <signal.h>
+#include <stdio.h>
 
-char	*ft_message_processor()
+void	ft_message_processor(int bit)
 {
-	//Procesamos los bits recibidos, cuando son 8, escribimos el char
-	//int to ascii
+	int		bit_counter;
+	char	character;
+
+	bit_counter = 0;
+	while (bit)
+	{
+		while (bit_counter < 8)
+		{
+			if (bit == 1)
+				character = (character >> bit_counter | 1);
+				bit_counter++;
+		}
+		printf (character);
+		character = 0;
+		bit_counter = 0;
+	}
 }
 
 int	main(void)
@@ -27,10 +42,9 @@ int	main(void)
 	printf("PID: %d", pid);
 	while (1)
 	{
-		if (ft_bit_converter == 0)
-			ft_message_processor();
-		else if (ft_bit_converter == 1)
-			ft_message_processor();
+		signal(SIGUSR1, ft_message_processor);
+		signal(SIGUSR2, ft_message_processor);
+		pause();
 	}
 	return (0);
 }

@@ -12,28 +12,27 @@
 
 #include <stdio.h>
 #include <signal.h>
+#include <stdio.h>
 
-int	ft_bit_converter(int pid, char *message)
+void	ft_bit_converter(int pid, char *message)
 {
 	int		bit_counter;
 	char	character;
-	
-	bit_counter = 1;
-	while (bit_counter < 9)
-	{
-		character = message[counter];
-		bit_counter++;
-	}
-	//tomamos el string, lo descomponemos en bits
-	//lo enviamos al pid recibido
-	//ascii to int
-	int	counter;
 
-	counter = 0;
-	while (message[counter])
+	bit_counter = 0;
+	while (*message)
 	{
-		sigaction
-		counter++;
+		character = *message;
+		while (bit_counter < 8)
+		{
+			if (character >> bit_counter & 1)
+				kill(pid, SIGUSR2);
+			else
+				kill(pid, SIGUSR1);
+			bit_counter++;
+		}
+		bit_counter = 0;
+		*message++;
 	}
 }
 
@@ -46,7 +45,7 @@ int	main(int argc, char **argv)
 	message = argv[2];
 	if (argc != 3)
 	{
-		ft_printf("Error, número inválido de argumentos.");
+		ft_printf("Error, invalid number of arguments.");
 		return (0);
 	}
 	ft_bit_converter(pid, message);
