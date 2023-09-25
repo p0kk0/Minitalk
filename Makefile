@@ -10,8 +10,8 @@ SERVER_OBJ = $(SERVER_SRC:.c=.o)
 CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
 
 
-LIBFT_DIR = "1. Libft"
-PRINTF_DIR = "3. ft_printf"
+LIBFT_DIR = Libft
+PRINTF_DIR = Ft_printf
 
 LIBFT = $(LIBFT_DIR)/libft.a
 PRINTF = $(PRINTF_DIR)/libftprintf.a
@@ -24,10 +24,10 @@ MAKE = make
 
 all: $(NAME)
 
-$(SERVER): $(SERVER_OBJ)
+$(SERVER): $(LIBFT) $(PRINTF) $(SERVER_OBJ)
 	$(CC) $(CFLAGS) $(LIBFT) $(PRINTF) $(SERVER_OBJ) -o $(SERVER)
 
-$(CLIENT): $(CLIENT_OBJ)
+$(CLIENT): $(LIBFT) $(PRINTF) $(CLIENT_OBJ)
 	$(CC) $(CFLAGS) $(LIBFT) $(PRINTF) $(CLIENT_OBJ) -o $(CLIENT)
 
 $(NAME): $(LIBFT) $(PRINTF) $(CLIENT) $(SERVER)
@@ -49,4 +49,4 @@ fclean: clean
 re: fclean
 	$(MAKE) all
 
-.PHONY: NAME all clean fclean re
+.PHONY: all NAME clean fclean re
