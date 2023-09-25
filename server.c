@@ -10,28 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <signal.h>
-#include <stdio.h>
+#include "minitalk.h"
 
-void	ft_message_processor(int bit)
+void	ft_message_processor(int signal)
 {
 	int		bit_counter;
 	char	character;
 
+	character = 0;
 	bit_counter = 0;
-	while (bit)
+	(void)signal;
+	while (bit_counter < 8)
 	{
-		while (bit_counter < 8)
-		{
-			if (bit == 1)
-				character = (character >> bit_counter | 1);
-				bit_counter++;
-		}
-		printf (character);
-		character = 0;
-		bit_counter = 0;
+		//if (signal == 1)
+			//character = 
+			bit_counter++;
 	}
+	ft_printf("%c", character);
+	bit_counter = 0;
 }
 
 int	main(void)
@@ -39,7 +35,7 @@ int	main(void)
 	pid_t	pid;
 
 	pid = getpid();
-	printf("PID: %d", pid);
+	ft_printf("PID: %d", pid);
 	while (1)
 	{
 		signal(SIGUSR1, ft_message_processor);

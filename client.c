@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <signal.h>
-#include <stdio.h>
+#include "minitalk.h"
 
 void	ft_bit_converter(int pid, char *message)
 {
@@ -32,7 +30,7 @@ void	ft_bit_converter(int pid, char *message)
 			bit_counter++;
 		}
 		bit_counter = 0;
-		*message++;
+		message++;
 	}
 }
 
@@ -41,7 +39,7 @@ int	main(int argc, char **argv)
 	int		pid;
 	char	*message;
 
-	pid = atoi(argv[1]);
+	pid = ft_atoi(argv[1]);
 	message = argv[2];
 	if (argc != 3)
 	{
