@@ -9,17 +9,15 @@ CLIENT_SRC = client.c
 SERVER_OBJ = $(SERVER_SRC:.c=.o)
 CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
 
-
 LIBFT_DIR = Libft
 PRINTF_DIR = Ft_printf
 
-LIBFT = $(LIBFT_DIR)/libft.a
-PRINTF = $(PRINTF_DIR)/libftprintf.a
+LIBFT = Libft/libft.a
+PRINTF = Ft_printf/libftprintf.a
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
-
 MAKE = make
 
 all: $(NAME)

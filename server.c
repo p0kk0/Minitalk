@@ -19,15 +19,20 @@ void	ft_message_processor(int signal)
 
 	character = 0;
 	bit_counter = 0;
-	(void)signal;
+	printf("%d\n", signal);
 	while (bit_counter < 8)
 	{
-		//if (signal == 1)
-			//character = 
-			bit_counter++;
+		if (signal == 1)
+		{
+			character = (character | 1 >> bit_counter);
+		}
+		bit_counter++;
+		if (bit_counter == 8)
+		{
+			ft_printf("%c", character);
+			bit_counter = 0;
+		}
 	}
-	ft_printf("%c", character);
-	bit_counter = 0;
 }
 
 int	main(void)
