@@ -17,19 +17,18 @@ void	ft_bit_converter(int pid, char *message)
 	int		bit_counter;
 	char	character;
 
-	bit_counter = 0;
 	while (*message)
 	{
+		bit_counter = 8;
 		character = *message;
-		while (bit_counter < 8)
+		while (bit_counter--)
 		{
 			if (character >> bit_counter & 1)
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
-			bit_counter++;
+			usleep(100);
 		}
-		bit_counter = 0;
 		message++;
 	}
 }
@@ -44,7 +43,7 @@ int	main(int argc, char **argv)
 	if (argc != 3)
 	{
 		ft_printf("Error, invalid number of arguments.");
-		return (0);
+		return (EXIT_FAILURE);
 	}
 	ft_bit_converter(pid, message);
 	return (0);

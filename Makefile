@@ -9,11 +9,11 @@ CLIENT_SRC = client.c
 SERVER_OBJ = $(SERVER_SRC:.c=.o)
 CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
 
-LIBFT_DIR = Libft
-PRINTF_DIR = Ft_printf
+LIBFT_DIR = libft
+PRINTF_DIR = ft_printf
 
-LIBFT = Libft/libft.a
-PRINTF = Ft_printf/libftprintf.a
+LIBFT = libft/libft.a
+PRINTF = ft_printf/libftprintf.a
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
