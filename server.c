@@ -14,15 +14,13 @@
 
 void	ft_message_processor(int signal)
 {
-	int		bit_counter;
-	char	character;
+	static int	bit_counter = 0;
+	static char	character = 0;
 
-	bit_counter = 8;
-	character = 0;
 	if (signal == SIGUSR2)
-		character = character 
-	bit_counter--;
-	if (bit_counter == 0)
+		character = character | (1 << (7 - bit_counter));
+	bit_counter++;
+	if (bit_counter == 8)
 	{
 		ft_printf("%c", character);
 		bit_counter = 0;
