@@ -9,6 +9,12 @@ CLIENT_SRC = client.c
 SERVER_OBJ = $(SERVER_SRC:.c=.o)
 CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
 
+SERVER_BONUS_SRC = server_bonus.c
+CLIENT_BONUS_SRC = client_bonus.c
+
+SERVER_BONUS_OBJ = $(SERVER_BONUS_SRC:.c=.o)
+CLIENT_BONUS_OBJ = $(CLIENT_BONUS_SRC:.c=.o)
+
 LIBFT_DIR = libft
 PRINTF_DIR = ft_printf
 
@@ -39,12 +45,22 @@ $(PRINTF):
 clean:
 	$(RM) $(SERVER_OBJ)
 	$(RM) $(CLIENT_OBJ)
+	$(RM) $(SERVER_BONUS_OBJ)
+	$(RM) $(CLIENT_BONUS_OBJ)
+	make clean -C $(LIBFT_DIR)
+	make clean -C $(PRINTF_DIR)
 
 fclean: clean
 	$(RM) $(SERVER)
 	$(RM) $(CLIENT)
+	make fclean -C $(LIBFT_DIR)
+	make fclean -C $(PRINTF_DIR)
 
 re: fclean
 	$(MAKE) all
 
-.PHONY: all NAME clean fclean re
+bonus: $(LIBFT) $(PRINTF) $(SERVER_BONUS_OBJ) $(CLIENT_BONUS_OBJ)
+	$(CC) $(CFLAGS) $(LIBFT) $(PRINTF) $(SERVER_BONUS_OBJ) -o $(SERVER)
+	$(CC) $(CFLAGS) $(LIBFT) $(PRINTF) $(CLIENT_BONUS_OBJ) -o $(CLIENT)
+
+.PHONY: all NAME clean fclean re bonus
