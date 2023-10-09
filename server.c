@@ -22,7 +22,7 @@ void	ft_message_processor(int signal)
 	bit_counter++;
 	if (bit_counter == 8)
 	{
-		ft_printf("%c", character);
+		ft_putchar(character);
 		bit_counter = 0;
 		character = 0;
 	}
@@ -33,12 +33,10 @@ int	main(void)
 	pid_t	pid;
 
 	pid = getpid();
-	ft_printf("PID: %d", pid);
+	ft_printf("PID: %d\n", pid);
+	signal(SIGUSR1, ft_message_processor);
+	signal(SIGUSR2, ft_message_processor);
 	while (1)
-	{
-		signal(SIGUSR1, ft_message_processor);
-		signal(SIGUSR2, ft_message_processor);
 		pause();
-	}
 	return (0);
 }

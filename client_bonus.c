@@ -12,6 +12,12 @@
 
 #include "minitalk.h"
 
+void	ft_confirmation(int signal)
+{
+	if (signal == SIGUSR1)
+		ft_printf("Oido cocina");
+}
+
 void	ft_bit_converter(int pid, char *message)
 {
 	int		bit_counter;
@@ -27,7 +33,7 @@ void	ft_bit_converter(int pid, char *message)
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
-			usleep(30);
+			usleep(100);
 		}
 		message++;
 	}
@@ -37,14 +43,25 @@ int	main(int argc, char **argv)
 {
 	int		pid;
 	char	*message;
+	int		i;
 
-	pid = ft_atoi(argv[1]);
-	message = argv[2];
 	if (argc != 3)
 	{
 		ft_printf("Error, invalid number of arguments.");
 		return (EXIT_FAILURE);
 	}
-	ft_bit_converter(pid, message);
+	else
+	{
+		pid = ft_atoi(argv[1]);
+		message = argv[2];
+		signal(SIGUSR1, ft_confirmation);
+		ft_bit_converter(pid, message);
+	}
+	i = -1;
+	while (++i < 8)
+	{
+		kill(pid, SIGUSR1);
+		usleep(100);
+	}
 	return (0);
 }

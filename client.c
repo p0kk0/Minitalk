@@ -27,7 +27,7 @@ void	ft_bit_converter(int pid, char *message)
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
-			usleep(30);
+			usleep(100);
 		}
 		message++;
 	}
