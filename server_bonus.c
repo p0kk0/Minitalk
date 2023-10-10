@@ -10,27 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
-void	ft_message_processor(int signal, siginfo_t *info, void *oldaction)
+void	ft_message_processor(int signal, siginfo_t *info, void *context)
 {
 	static int	bit_counter = 0;
 	static char	character = 0;
 
-	(void)oldaction;
+	(void)context;
 	if (signal == SIGUSR2)
 		character = character | (1 << (7 - bit_counter));
 	bit_counter++;
 	if (bit_counter == 8)
 	{
-		if (character == 0)
-			kill(info->si_pid, SIGUSR1);
-		else
-		{
-			ft_putchar(character);
-			bit_counter = 0;
-			character = 0;
-		}
+		ft_putchar(character);
+		bit_counter = 0;
+		character = 0;
+		kill(info->si_pid, SIGUSR1);
 	}
 }
 

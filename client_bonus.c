@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
 void	ft_confirmation(int signal)
 {
 	if (signal == SIGUSR1)
-		ft_printf("Oido cocina");
+		ft_printf("Signal received.");
 }
 
 void	ft_bit_converter(int pid, char *message)
@@ -41,10 +41,6 @@ void	ft_bit_converter(int pid, char *message)
 
 int	main(int argc, char **argv)
 {
-	int		pid;
-	char	*message;
-	int		i;
-
 	if (argc != 3)
 	{
 		ft_printf("Error, invalid number of arguments.");
@@ -52,16 +48,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		pid = ft_atoi(argv[1]);
-		message = argv[2];
 		signal(SIGUSR1, ft_confirmation);
-		ft_bit_converter(pid, message);
+		ft_bit_converter(ft_atoi(argv[1]), argv[2]);
 	}
-	i = -1;
-	while (++i < 8)
-	{
-		kill(pid, SIGUSR1);
-		usleep(100);
-	}
-	return (0);
 }
